@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
 	import Clothes from '$lib/components/Clothes.svelte';
+	import type { clothesType } from '$lib/types.js';
 
-	const clothesList = [
-		{ category: '상의', name: 'clothes1' },
-		{ category: '외투', name: 'clothes2' }
+	const clothesList: clothesType[] = [
+		{ id: 1, category: '상의', name: 'clothes1' },
+		{ id: 2, category: '외투', name: 'clothes2' }
 	];
 </script>
 
