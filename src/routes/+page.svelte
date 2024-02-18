@@ -8,10 +8,11 @@
 	];
 </script>
 
+<a href="/add" class="btn btn-primary self-end m-5" role="button">
+	<i class="uil uil-plus"></i>
+	Add Clothes
+</a>
 <ul class="p-10 grid gap-5">
-	<li class="add bg-white">
-		<a href="/add"><p>Add Clothes</p></a>
-	</li>
 	{#each clothesList as clothes}
 		<Clothes data={clothes} />
 	{/each}
@@ -22,13 +23,5 @@
 		display: flex;
 		list-style: none;
 		text-align: center;
-	}
-	.add {
-		border: 1px solid #ddd;
-		width: 200px;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
 	}
 </style>
