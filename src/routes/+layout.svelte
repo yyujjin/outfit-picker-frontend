@@ -2,10 +2,6 @@
 	import '../app.css';
 </script>
 
-<slot />
-
-<style lang="postcss">
-	:global(html) {
-		background-color: theme(colors.gray.100);
-	}
-</style>
+<div class="flex flex-col justify-center items-center min-h-full">
+	<slot />
+</div>

@@ -1,22 +1,24 @@
-<form>
-	<h2>Add Clothes</h2>
-	<p>Enter your clothes information to add to your closet.</p>
+<form class="h-screen space-y-5">
+	<div>
+		<h2 class="text-2xl">Add Clothes</h2>
+		<p>Enter your clothes information to add to your closet.</p>
+	</div>
 	<div class="input-group">
 		<label for="category">Category</label>
-		<select name="category" id="category">
+		<select name="category" id="category" class="select select-bordered">
 			<option value="1">상의</option>
 			<option value="2">하의</option>
 		</select>
 	</div>
 	<div class="input-group">
 		<label for="name">Name</label>
-		<input type="text" name="name" />
+		<input type="text" name="name" class="input input-bordered" />
 	</div>
 	<div class="input-group">
 		<label for="url">URL</label>
-		<input type="text" name="url" id="url" />
+		<input type="text" name="url" id="url" class="input input-bordered" />
 	</div>
-	<button>Submit</button>
+	<button class="btn btn-primary">Submit</button>
 </form>
 
 <style>

@@ -8,8 +8,8 @@
 	];
 </script>
 
-<ul>
-	<li class="add">
+<ul class="p-10 grid gap-5">
+	<li class="add bg-white">
 		<a href="/add"><p>Add Clothes</p></a>
 	</li>
 	{#each clothesList as clothes}

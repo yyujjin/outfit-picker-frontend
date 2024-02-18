@@ -11,32 +11,15 @@
 	};
 </script>
 
-<li class="clothes">
-	<button on:click={onRemove}>remove</button>
-	<img src={hanger} alt="hanger" width="200" />
-	<div class="category">{data.category}</div>
-	<div class="name">{data.name}</div>
-</li>
-
-<style>
-	.clothes {
-		text-align: center;
-		margin-right: 10px;
-		position: relative;
-	}
-
-	.clothes button {
-		position: absolute;
-		display: none;
-		right: 0;
-	}
-	.clothes:hover button {
-		display: block;
-	}
-	.category {
-		font-weight: bold;
-	}
-	.name {
-		color: #666;
-	}
-</style>
+<div class="card card-compact w-60 bg-base-100 shadow-xl">
+	<figure>
+		<img src={hanger} alt="clothes" />
+	</figure>
+	<div class="card-body">
+		<h2 class="card-title">{data.category}</h2>
+		<p>{data.name}</p>
+		<div class="card-actions justify-end">
+			<button class="btn btn-accent btn-md" on:click={onRemove}>Remove</button>
+		</div>
+	</div>
+</div>
