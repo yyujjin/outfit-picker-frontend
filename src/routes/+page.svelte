@@ -1,22 +1,29 @@
 <script lang="ts">
 	import Clothes from '$lib/components/Clothes.svelte';
 	import type { clothesType } from '$lib/types.js';
+	import axios from 'axios';
 
-	const clothesList: clothesType[] = [
-		{ id: 1, category: '상의', name: 'clothes1' },
-		{ id: 2, category: '외투', name: 'clothes2' }
-	];
+	const fetchData = async () => {
+		const { data } = await axios.get(`/api/items`);
+		return data.data;
+	};
+
+	const promise = fetchData();
 </script>
 
 <a href="/add" class="btn btn-primary self-end m-5" role="button">
 	<i class="uil uil-plus"></i>
 	Add Clothes
 </a>
-<ul class="p-10 grid gap-5">
-	{#each clothesList as clothes}
-		<Clothes data={clothes} />
-	{/each}
-</ul>
+{#await promise}
+	loading
+{:then clothesList}
+	<ul class="p-10 grid gap-5">
+		{#each clothesList as clothes}
+			<Clothes data={clothes} />
+		{/each}
+	</ul>
+{/await}
 
 <style>
 	ul {
