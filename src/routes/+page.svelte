@@ -18,17 +18,9 @@
 {#await promise}
 	loading
 {:then clothesList}
-	<ul class="p-10 grid gap-5">
+	<ul class="p-10 grid gap-5 grid-cols-4">
 		{#each clothesList as clothes}
 			<Clothes data={clothes} />
 		{/each}
 	</ul>
 {/await}
-
-<style>
-	ul {
-		display: flex;
-		list-style: none;
-		text-align: center;
-	}
-</style>
