@@ -1,0 +1,44 @@
+<script lang="ts">
+	import dayjs from 'dayjs';
+	import datepickerStore from '$lib/stores/datepicker.js';
+	import { storeContextKey } from '$lib/context.js'; // TODO js
+	import { setContext } from 'svelte';
+	import { derived, writable } from 'svelte/store';
+	import DayPicker from './DayPicker.svelte';
+	// import Theme from '$lib/components/generic/Theme.svelte';
+	// import Calendar from '$lib/components/calendar/Calendar.svelte';
+	// import CrossfadeBoundary from './generic/crossfade/CrossfadeBoundary.svelte';
+	// import { calendar as calendarDefaults } from '$lib/config/defaults';
+
+	// export let selected = calendarDefaults.selected;
+	// export let start = calendarDefaults.start;
+	// export let end = calendarDefaults.end;
+	// export let format = calendarDefaults.format;
+	export let formatted = '';
+	export let theme = {};
+	// export let defaultTheme = undefined;
+	export let startOfWeekIndex = 0;
+	// export let store = datepickerStore.get({ selected, start, end, startOfWeekIndex });
+	export let store = datepickerStore.get({ startOfWeekIndex });
+
+	const focused = writable(false);
+
+	setContext(storeContextKey, store);
+	// setContext(
+	// 	keyControlsContextKey,
+	// 	derived([store, focused], ([$s, $focused]) => ($focused ? $s.activeView : undefined))
+	// );
+
+	// const getFocusSetter = (bool) => () => focused.set(bool);
+
+	// $: selected = $store.selected;
+	// $: formatted = dayjs(selected).format(format);
+</script>
+
+<DayPicker />
+
+<style>
+	div {
+		display: inline-block;
+	}
+</style>
