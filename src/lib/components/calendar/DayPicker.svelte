@@ -4,7 +4,7 @@
 
 	import { storeContextKey } from '$lib/context.js';
 	// import KeyControls from '$lib/components/generic/KeyControls.svelte';
-	// import Grid from '$lib/components/generic/Grid.svelte';
+	import Grid from '$lib/components/generic/Grid.svelte';
 	// import InfiniteGrid from '$lib/components/generic/InfiniteGrid.svelte';
 	// import Crossfade from '../generic/crossfade/Crossfade.svelte';
 	// import scrollable from '$lib/directives/scrollable';
@@ -44,25 +44,30 @@
 	// 	escape: () => store.close()
 	// };
 
-	// const calPagesBetweenDates = (a, b) => {
-	// 	const yearDelta = b.getFullYear() - a.getFullYear();
-	// 	const firstPartialYear = yearDelta ? 12 - a.getMonth() : b.getMonth() - a.getMonth() + 1;
-	// 	const fullYears = yearDelta > 1 ? (yearDelta - 1) * 12 : 0;
-	// 	const lastPartialYear = yearDelta ? b.getMonth() + 1 : 0;
-	// 	return firstPartialYear + fullYears + lastPartialYear;
-	// };
+	const calPagesBetweenDates = (a, b) => {
+		// 뭐하는 함수일까
+		const yearDelta = b.getFullYear() - a.getFullYear();
+		const firstPartialYear = yearDelta ? 12 - a.getMonth() : b.getMonth() - a.getMonth() + 1;
+		const fullYears = yearDelta > 1 ? (yearDelta - 1) * 12 : 0;
+		const lastPartialYear = yearDelta ? b.getMonth() + 1 : 0;
+		return firstPartialYear + fullYears + lastPartialYear;
+	};
 
-	// const get = (index) => {
-	// 	const d = dayjs($store.start).add(index, 'month');
-	// 	return { days: store.getCalendarPage(d.month(), d.year()) };
-	// };
+	console.group('dayPicker');
+	const get = (index: number) => {
+		const d = dayjs($store.start).add(index, 'month');
+		return { days: store.getCalendarPage(d.month(), d.year()) };
+	};
+	console.groupEnd();
 
 	// const updateIndex = ({ detail: { step: newIndex } }) => {
 	// 	store.add(newIndex - monthIndex, 'month', ['date']);
 	// };
 
 	// $: totalMonths = calPagesBetweenDates($store.start, $store.end);
-	// $: monthIndex = calPagesBetweenDates($store.start, $store.selected) - 1;
+	$: monthIndex = calPagesBetweenDates($store.start, $store.selected) - 1;
+	let { days } = get(1200);
+
 	// $: initialY = monthIndex * scrollStep;
 </script>
 
@@ -83,26 +88,27 @@
 				{get}
 				let:days
 				let:index
-			>
-				<Grid template="repeat(6, 1fr) / repeat(7, 1fr)">
-					{#each days as day, i (day)}
-						{#if !$store.enlargeDay || index !== monthIndex || !dayjs(day.date).isSame($store.selected)}
-							<a
-								href="#pickday"
-								on:keydown|preventDefault
-								on:click|preventDefault={select(day.date)}
-								class:disabled={!store.isSelectable(day.date)}
-								class:selected={index === monthIndex &&
-									dayjs(day.date).isSame($store.selected, 'day')}
-								class:outsider={day.outsider}
-								out:send|local={{ key }}
-								in:receive|local={{ key }}
-							>
-								{day.date.getDate()}
-							</a>
-						{/if}
-					{/each}
-				</Grid>
+			>-->
+	<Grid template="repeat(6, 1fr) / repeat(7, 1fr)">
+		{#each days as day, i (day)}
+			<!-- {#if !$store.enlargeDay || index !== monthIndex || !dayjs(day.date).isSame($store.selected)} -->
+			<!-- <a
+				href="#pickday"
+				on:keydown|preventDefault
+				on:click|preventDefault={select(day.date)}
+				class:disabled={!store.isSelectable(day.date)}
+				class:selected={index === monthIndex && dayjs(day.date).isSame($store.selected, 'day')}
+				class:outsider={day.outsider}
+				out:send|local={{ key }}
+				in:receive|local={{ key }}
+			> -->
+			<a class="text-base" href="#pickday" on:keydown|preventDefault>
+				{day.date.getDate()}
+			</a>
+			<!-- {/if} -->
+		{/each}
+	</Grid>
+	<!--
 			</InfiniteGrid>
 		</div>
 		{#if $store.enlargeDay}
@@ -130,9 +136,9 @@
 		/* 왜 필요할까 */
 		z-index: 2;
 	}
-	a {
+	/* a {
 		font-size: 1em;
-	}
+	} */
 	.stage {
 		display: grid;
 		grid-row: 2;

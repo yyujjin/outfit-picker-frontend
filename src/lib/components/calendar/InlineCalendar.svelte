@@ -8,18 +8,17 @@
 	// import Theme from '$lib/components/generic/Theme.svelte';
 	// import Calendar from '$lib/components/calendar/Calendar.svelte';
 	// import CrossfadeBoundary from './generic/crossfade/CrossfadeBoundary.svelte';
-	// import { calendar as calendarDefaults } from '$lib/config/defaults';
+	import { calendar as calendarDefaults } from '$lib/config/defaults.js';
 
-	// export let selected = calendarDefaults.selected;
-	// export let start = calendarDefaults.start;
-	// export let end = calendarDefaults.end;
+	export let selected = calendarDefaults.selected;
+	export let start = calendarDefaults.start;
+	export let end = calendarDefaults.end;
 	// export let format = calendarDefaults.format;
 	export let formatted = '';
 	export let theme = {};
 	// export let defaultTheme = undefined;
 	export let startOfWeekIndex = 0;
-	// export let store = datepickerStore.get({ selected, start, end, startOfWeekIndex });
-	export let store = datepickerStore.get({ startOfWeekIndex });
+	export let store = datepickerStore.get({ selected, start, end, startOfWeekIndex });
 
 	const focused = writable(false);
 
