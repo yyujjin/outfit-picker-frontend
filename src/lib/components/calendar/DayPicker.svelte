@@ -76,6 +76,7 @@
 <!-- <KeyControls {...KEY_MAPPINGS} ctx={['days']} /> -->
 
 <div class="container">
+	<!-- z-index: 2 설정도 있으나 왜 필요한지 파악 필요 -->
 	<div class="grid grid-cols-7 bg-base-100 border items-center text-base-content h-10 text-center">
 		{#each legend as label}
 			<span>{label}</span>
@@ -135,21 +136,7 @@
 		display: grid;
 		grid-template-rows: auto 1fr;
 	}
-	.legend {
-		display: grid;
-		grid-template: 1fr / repeat(7, 1fr);
-		background: var(--sc-theme-calendar-colors-background-primary);
-		border-bottom: 1px solid var(--sc-theme-calendar-colors-border);
-		align-items: center;
 
-		height: var(--sc-theme-calendar-legend-height);
-
-		/* 왜 필요할까 */
-		z-index: 2;
-	}
-	/* a {
-		font-size: 1em;
-	} */
 	.stage {
 		display: grid;
 		grid-row: 2;

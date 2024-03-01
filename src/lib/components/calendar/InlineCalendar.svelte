@@ -4,11 +4,10 @@
 	import { storeContextKey } from '$lib/context.js'; // TODO js
 	import { setContext } from 'svelte';
 	import { derived, writable } from 'svelte/store';
-	import DayPicker from './DayPicker.svelte';
 	// import Theme from '$lib/components/generic/Theme.svelte';
-	// import Calendar from '$lib/components/calendar/Calendar.svelte';
 	// import CrossfadeBoundary from './generic/crossfade/CrossfadeBoundary.svelte';
 	import { calendar as calendarDefaults } from '$lib/config/defaults.js';
+	import Calendar from './Calendar.svelte';
 
 	export let selected = calendarDefaults.selected;
 	export let start = calendarDefaults.start;
@@ -34,7 +33,21 @@
 	// $: formatted = dayjs(selected).format(format);
 </script>
 
-<DayPicker />
+<Calendar />
+
+<!-- <CrossfadeBoundary>
+	<Theme {defaultTheme} {theme} let:style>
+		<div
+			{style}
+			on:focus={getFocusSetter(true)}
+			on:blur={getFocusSetter(false)}
+			on:mouseover={getFocusSetter(true)}
+			on:mouseout={getFocusSetter(false)}
+		>
+			<Calendar />
+		</div>
+	</Theme>
+</CrossfadeBoundary> -->
 
 <style>
 	div {
