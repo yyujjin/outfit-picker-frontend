@@ -24,16 +24,18 @@
 
 	// const add = (amount) => () => store.add(amount, 'day');
 
-	// const select = (day) => () => {
-	// 	if (!store.isSelectable(day)) return;
-	// 	store.setDay(day || $store.selected);
-	// 	if (!$store.shouldEnlargeDay) return store.selectDay();
-	// 	store.enlargeDay();
-	// 	setTimeout(() => {
-	// 		store.selectDay();
-	// 		store.enlargeDay(false);
-	// 	}, duration + 60);
-	// };
+	const select = (day: Date) => () => {
+		if (!store.isSelectable(day)) return;
+		// store에 selected 설정
+		store.setDay(day || $store.selected); // day가 없을 수 있나??
+		if (!$store.shouldEnlargeDay) return store.selectDay();
+		console.log('select');
+		// store.enlargeDay();
+		// setTimeout(() => {
+		// 	store.selectDay();
+		// 	store.enlargeDay(false);
+		// }, duration + 60);
+	};
 
 	// const KEY_MAPPINGS = {
 	// 	left: add(-1),
@@ -102,7 +104,13 @@
 				out:send|local={{ key }}
 				in:receive|local={{ key }}
 			> -->
-			<a class="text-base" href="#pickday" on:keydown|preventDefault>
+			<a
+				class="text-base"
+				href="#pickday"
+				on:keydown|preventDefault
+				on:click|preventDefault={select(day.date)}
+				class:selected={dayjs(day.date).isSame($store.selected, 'day')}
+			>
 				{day.date.getDate()}
 			</a>
 			<!-- {/if} -->

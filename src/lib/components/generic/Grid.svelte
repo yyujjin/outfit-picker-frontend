@@ -35,9 +35,10 @@
 		background: var(--sc-theme-calendar-colors-background-hover);
 	}
 	.grid > :global(*.selected) {
-		background: var(--sc-theme-calendar-colors-background-highlight);
+		@apply bg-accent text-white opacity-100
+		/* background: var(--sc-theme-calendar-colors-background-highlight);
 		color: var(--sc-theme-calendar-colors-text-highlight);
-		opacity: 1;
+		opacity: 1; */;
 	}
 	.grid > :global(*.outsider) {
 		opacity: var(--sc-theme-calendar-grid-outsiderOpacity);

@@ -3,24 +3,37 @@ import dayjs from 'dayjs';
 
 const PICKER_TYPES = ['days', 'months', 'years'];
 
-const updateSelected = (value, property) => (state) => {
-	const newState = { ...state, [property]: value };
+type DateUnit = 'day' | 'month' | 'year';
+
+// state를 받는 함수를 리턴
+const updateSelected = (value: number, dateUnit: DateUnit) => (state) => {
+	const newState = { ...state, [dateUnit]: value };
 	return { ...newState, selected: new Date(newState.year, newState.month, newState.day) };
 };
 
 const pipe =
-	(...fns) =>
+	(...fns: Function[]) =>
 	(val) =>
 		fns.reduce((accum, fn) => fn(accum), val);
 
 const zeroDay = (date) => dayjs(date).startOf('day').toDate();
 
-const get = ({ selected, start, end, startOfWeekIndex = 0 }) => {
+const get = ({ selected, start, end, startOfWeekIndex = 0, shouldEnlargeDay = false }) => {
 	const { subscribe, set, update } = writable({
 		startOfWeekIndex,
 		selected,
 		start: zeroDay(start),
-		end: zeroDay(end)
+		end: zeroDay(end),
+		shouldEnlargeDay // 무슨 설정임?
+
+		// open: false,
+		// hasChosen: false,
+		// enlargeDay: false,
+		// year: selected.getFullYear(),
+		// month: selected.getMonth(),
+		// day: selected.getDate(),
+		// activeView: 'days',
+		// activeViewDirection: 1,
 	});
 
 	return {
@@ -32,19 +45,21 @@ const get = ({ selected, start, end, startOfWeekIndex = 0 }) => {
 		// enlargeDay(enlargeDay = true) {
 		// 	update((state) => ({ ...state, enlargeDay }));
 		// },
-		// getSelectableVector(date) {
-		// 	const { start, end } = this.getState();
-		// 	if (date < start) return -1;
-		// 	if (date > end) return 1;
-		// 	return 0;
-		// },
-		// isSelectable(date, clamping = []) {
-		// 	const vector = this.getSelectableVector(date);
-		// 	if (vector === 0) return true;
-		// 	if (!clamping.length) return false;
-		// 	const clamped = this.clampValue(dayjs(date), clamping).toDate();
-		// 	return this.isSelectable(clamped);
-		// },
+		getSelectableVector(date: Date) {
+			// 오ㅐ 이름이 벡터일까
+			const { start, end } = this.getState();
+			if (date < start) return -1;
+			if (date > end) return 1;
+			return 0;
+		},
+		isSelectable(date: Date, clamping = []): boolean {
+			const vector = this.getSelectableVector(date);
+			if (vector === 0) return true; // 설정한 시작과 종료 날짜 범위안에 있다면
+			if (!clamping.length) return false;
+			debugger; // 아래는 언제 실행될까
+			const clamped = this.clampValue(dayjs(date), clamping).toDate();
+			return this.isSelectable(clamped);
+		},
 		// clampValue(day, clampable) {
 		// 	const vector = this.getSelectableVector(day.toDate());
 		// 	if (vector === 0) return day;
@@ -80,21 +95,34 @@ const get = ({ selected, start, end, startOfWeekIndex = 0 }) => {
 		// setMonth(month) {
 		// 	update(updateSelected(month, 'month'));
 		// },
-		// setDay(day) {
-		// 	update(
-		// 		pipe(
-		// 			updateSelected(day.getDate(), 'day'),
-		// 			updateSelected(day.getMonth(), 'month'),
-		// 			updateSelected(day.getFullYear(), 'year')
-		// 		)
-		// 	);
-		// },
-		// close(extraState) {
-		// 	update((state) => ({ ...state, ...extraState, open: false }));
-		// },
-		// selectDay() {
-		// 	this.close({ hasChosen: true });
-		// },
+		setDay(day: Date) {
+			// day, month, year을 차례대로 state에 넣고 최종적으로 selectedDate를 생성한다.
+			// 근데 이 방식은 너무 복잡해서 코드 개선 필요 TODO:
+			update(
+				pipe(
+					updateSelected(day.getDate(), 'day'),
+					updateSelected(day.getMonth(), 'month'),
+					updateSelected(day.getFullYear(), 'year')
+				)
+			);
+			// const fns = [
+			// 	updateSelected(day.getDate(), 'day'),
+			// 	updateSelected(day.getMonth(), 'month'),
+			// 	updateSelected(day.getFullYear(), 'year')
+			// ];
+
+			// update((val) => {
+			// 	const v3 = fns.reduce((accum, fn) => fn(accum), val);
+			// 	return v3;
+			// });
+		},
+		close(extraState: { hasChosen: boolean }) {
+			// 왜 이름이 close??
+			update((state) => ({ ...state, ...extraState, open: false }));
+		},
+		selectDay() {
+			this.close({ hasChosen: true });
+		},
 		getCalendarPage(month: number, year: number) {
 			const { startOfWeekIndex } = this.getState();
 			let last = { date: new Date(year, month, 1), outsider: false };
