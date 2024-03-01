@@ -126,7 +126,7 @@ const get = ({ selected, start, end, startOfWeekIndex = 0, shouldEnlargeDay = fa
 		getCalendarPage(month: number, year: number) {
 			const { startOfWeekIndex } = this.getState();
 			let last = { date: new Date(year, month, 1), outsider: false };
-			const days: Date[] = [];
+			const days: { date: Date; outsider: boolean }[] = [];
 
 			// 1일부터 month의 마지막일까지 채우기
 			while (last.date.getMonth() === month) {

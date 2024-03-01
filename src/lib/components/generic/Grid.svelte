@@ -15,14 +15,17 @@
 		height: 100%;
 	} */
 	.grid > :global(*) {
-		font-size: var(--sc-theme-calendar-font-regular);
 		text-decoration: none;
-		color: var(--sc-theme-calendar-colors-text-primary);
 		transition: all 180ms ease-out;
-		background: var(--sc-theme-calendar-colors-background-primary);
 		display: grid;
 		text-align: center;
 		align-items: center;
+	}
+	.grid > :global(*) {
+		@apply text-base text-base-content bg-white
+		/* font-size: var(--sc-theme-calendar-font-regular);
+		color: var(--sc-theme-calendar-colors-text-primary);
+		background: var(--sc-theme-calendar-colors-background-primary); */;
 	}
 
 	@media (max-width: 720px) {
@@ -32,7 +35,8 @@
 	}
 
 	.grid > :global(*:hover) {
-		background: var(--sc-theme-calendar-colors-background-hover);
+		@apply bg-gray-200
+		/* background: var(--sc-theme-calendar-colors-background-hover); */;
 	}
 	.grid > :global(*.selected) {
 		@apply bg-accent text-white opacity-100
@@ -41,7 +45,8 @@
 		opacity: 1; */;
 	}
 	.grid > :global(*.outsider) {
-		opacity: var(--sc-theme-calendar-grid-outsiderOpacity);
+		/* opacity: var(--sc-theme-calendar-grid-outsiderOpacity); */
+		opacity: 0.6;
 	}
 	.grid > :global(*.disabled) {
 		opacity: var(--sc-theme-calendar-grid-disabledOpacity);

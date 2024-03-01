@@ -101,7 +101,8 @@
 				class:disabled={!store.isSelectable(day.date)}
 				class:selected={index === monthIndex && dayjs(day.date).isSame($store.selected, 'day')}
 				class:outsider={day.outsider}
-				out:send|local={{ key }}
+				아래 두 개 적용 안됨
+				out:send|local={{ key }} 
 				in:receive|local={{ key }}
 			> -->
 			<a
@@ -109,7 +110,9 @@
 				href="#pickday"
 				on:keydown|preventDefault
 				on:click|preventDefault={select(day.date)}
+				class:disabled={!store.isSelectable(day.date)}
 				class:selected={dayjs(day.date).isSame($store.selected, 'day')}
+				class:outsider={day.outsider}
 			>
 				{day.date.getDate()}
 			</a>
