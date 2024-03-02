@@ -4,6 +4,7 @@
 	import DayPicker from './DayPicker.svelte';
 	import MonthPicker from './MonthPicker.svelte';
 	import { storeContextKey } from '$lib/context.js';
+	import ViewTransitionEffect from '../generic/ViewTransitionEffect.svelte';
 
 	const store = getContext(storeContextKey);
 </script>
@@ -17,13 +18,13 @@
 	<DatepickerControls />
 	<div class="contents">
 		{#if $store.activeView === 'days'}
-			<!-- <ViewTransitionEffect> -->
-			<DayPicker />
-			<!-- </ViewTransitionEffect> -->
+			<ViewTransitionEffect>
+				<DayPicker />
+			</ViewTransitionEffect>
 		{:else if $store.activeView === 'months'}
-			<!-- <ViewTransitionEffect> -->
-			<MonthPicker />
-			<!-- </ViewTransitionEffect> -->
+			<ViewTransitionEffect>
+				<MonthPicker />
+			</ViewTransitionEffect>
 			<!-- {:else if $store.activeView === 'years'}
 				<ViewTransitionEffect>
 					<YearPicker />

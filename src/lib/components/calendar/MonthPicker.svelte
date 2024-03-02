@@ -4,11 +4,13 @@
 	import dayjs from 'dayjs';
 	// import KeyControls from '$lib/components/generic/KeyControls.svelte';
 	import Grid from '$lib/components/generic/Grid.svelte';
-	// import InfiniteGrid from '$lib/components/generic/InfiniteGrid.svelte';
+	import InfiniteGrid from '$lib/components/generic/InfiniteGrid.svelte';
 	// import scrollable from '$lib/directives/scrollable';
 	// import { scrollStep } from '$lib/config/scroll';
 
 	const store = getContext(storeContextKey);
+
+	let grid; //InfiniteGrid에서 사용함
 
 	const get = (index: number) => ({
 		months: Array(12)
@@ -62,7 +64,7 @@
 	// $: initialY = yearIndex * scrollStep;
 	$: itemCount = $store.end.getFullYear() - $store.start.getFullYear() + 1;
 
-	let { months } = get(100);
+	let { months } = get(100); // TODO
 	console.log(months);
 </script>
 
