@@ -75,7 +75,7 @@
 
 <!-- <KeyControls {...KEY_MAPPINGS} ctx={['days']} /> -->
 
-<div class="container">
+<div class="grid grid-rows-[auto 1fr]">
 	<!-- z-index: 2 설정도 있으나 왜 필요한지 파악 필요 -->
 	<div class="grid grid-cols-7 bg-base-100 border items-center text-base-content h-10 text-center">
 		{#each legend as label}
@@ -132,11 +132,6 @@
 </div>
 
 <style>
-	.container {
-		display: grid;
-		grid-template-rows: auto 1fr;
-	}
-
 	.stage {
 		display: grid;
 		grid-row: 2;

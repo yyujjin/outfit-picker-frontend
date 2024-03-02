@@ -1,6 +1,11 @@
-<script>
+<script lang="ts">
+	import { getContext } from 'svelte';
 	import DatepickerControls from './DatepickerControls.svelte';
 	import DayPicker from './DayPicker.svelte';
+	import MonthPicker from './MonthPicker.svelte';
+	import { storeContextKey } from '$lib/context.js';
+
+	const store = getContext(storeContextKey);
 </script>
 
 <!-- <CrossfadeProvider let:key let:send let:receive> -->
@@ -11,22 +16,19 @@
 >
 	<DatepickerControls />
 	<div class="contents">
-		<div>
+		{#if $store.activeView === 'days'}
+			<!-- <ViewTransitionEffect> -->
 			<DayPicker />
-		</div>
-		<!-- {#if $store.activeView === 'days'}
-				<ViewTransitionEffect>
-					<DayPicker />
-				</ViewTransitionEffect>
-			{:else if $store.activeView === 'months'}
-				<ViewTransitionEffect>
-					<MonthPicker />
-				</ViewTransitionEffect>
-			{:else if $store.activeView === 'years'}
+			<!-- </ViewTransitionEffect> -->
+		{:else if $store.activeView === 'months'}
+			<!-- <ViewTransitionEffect> -->
+			<MonthPicker />
+			<!-- </ViewTransitionEffect> -->
+			<!-- {:else if $store.activeView === 'years'}
 				<ViewTransitionEffect>
 					<YearPicker />
-				</ViewTransitionEffect>
-			{/if} -->
+				</ViewTransitionEffect>-->
+		{/if}
 	</div>
 </div>
 

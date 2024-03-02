@@ -32,8 +32,8 @@ const get = ({ selected, start, end, startOfWeekIndex = 0, shouldEnlargeDay = fa
 		year: selected.getFullYear(),
 		month: selected.getMonth(),
 		day: selected.getDate(),
-		activeView: 'days'
-		// activeViewDirection: 1,
+		activeView: 'days',
+		activeViewDirection: 1
 	});
 
 	return {
@@ -81,21 +81,21 @@ const get = ({ selected, start, end, startOfWeekIndex = 0, shouldEnlargeDay = fa
 				};
 			});
 		},
-		// setActiveView(newActiveView) {
-		// 	const newIndex = PICKER_TYPES.indexOf(newActiveView);
-		// 	if (newIndex === -1) return;
-		// 	update(({ activeView, ...state }) => ({
-		// 		...state,
-		// 		activeViewDirection: PICKER_TYPES.indexOf(activeView) > newIndex ? -1 : 1,
-		// 		activeView: newActiveView
-		// 	}));
-		// },
+		setActiveView(newActiveView: 'days' | 'months' | 'years') {
+			const newIndex = PICKER_TYPES.indexOf(newActiveView);
+			if (newIndex === -1) return;
+			update(({ activeView, ...state }) => ({
+				...state,
+				activeViewDirection: PICKER_TYPES.indexOf(activeView) > newIndex ? -1 : 1,
+				activeView: newActiveView
+			}));
+		},
 		// setYear(year) {
 		// 	update(updateSelected(year, 'year'));
 		// },
-		// setMonth(month) {
-		// 	update(updateSelected(month, 'month'));
-		// },
+		setMonth(month: number) {
+			update(updateSelected(month, 'month'));
+		},
 		setDay(day: Date) {
 			// day, month, year을 차례대로 state에 넣고 최종적으로 selectedDate를 생성한다.
 			// 근데 이 방식은 너무 복잡해서 코드 개선 필요 TODO:

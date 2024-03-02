@@ -22,7 +22,7 @@
 
 	const VIEW_TRANSITIONS = ['days', 'months', 'years'];
 	const updateActiveView = () => {
-		// TODO
+		// TODO transitionIndex가 0이면 바로 리턴하면 안되나?
 		const transitionIndex = VIEW_TRANSITIONS.indexOf($store.activeView) + 1;
 		const newView = transitionIndex ? VIEW_TRANSITIONS[transitionIndex] : null;
 		if (newView) store.setActiveView(newView);
