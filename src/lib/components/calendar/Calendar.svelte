@@ -5,6 +5,7 @@
 	import MonthPicker from './MonthPicker.svelte';
 	import { storeContextKey } from '$lib/context.js';
 	import ViewTransitionEffect from '../generic/ViewTransitionEffect.svelte';
+	import YearPicker from './YearPicker.svelte';
 
 	const store = getContext(storeContextKey);
 </script>
@@ -25,10 +26,10 @@
 			<ViewTransitionEffect>
 				<MonthPicker />
 			</ViewTransitionEffect>
-			<!-- {:else if $store.activeView === 'years'}
-				<ViewTransitionEffect>
-					<YearPicker />
-				</ViewTransitionEffect>-->
+		{:else if $store.activeView === 'years'}
+			<ViewTransitionEffect>
+				<YearPicker />
+			</ViewTransitionEffect>
 		{/if}
 	</div>
 </div>

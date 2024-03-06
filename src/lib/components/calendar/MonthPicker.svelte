@@ -37,6 +37,7 @@
 	}
 
 	const select = (month: Month) => () => {
+		debugger;
 		if (month.disabled) return;
 		store.setMonth(month.index);
 		close();
@@ -64,33 +65,33 @@
 	// $: initialY = yearIndex * scrollStep;
 	$: itemCount = $store.end.getFullYear() - $store.start.getFullYear() + 1;
 
-	let { months } = get(100); // TODO
-	console.log(months);
+	// let { months } = get(100); // TODO
+	// console.log(months);
 </script>
 
 <!-- <KeyControls {...KEY_MAPPINGS} ctx={['months']} /> -->
-<!-- <div use:scrollable={{ y: initialY, step: scrollStep, maxSteps: itemCount }} on:y={updateIndex}>
-	<InfiniteGrid cellCount={1} {itemCount} bind:index={yearIndex} {get} let:months bind:this={grid}> -->
-<Grid template="repeat(4, 1fr) / repeat(3, 1fr)">
-	{#each months as month, i}
-		<!-- <a
+<!-- <div use:scrollable={{ y: initialY, step: scrollStep, maxSteps: itemCount }} on:y={updateIndex}>-->
+<InfiniteGrid cellCount={1} {itemCount} bind:index={yearIndex} {get} let:months bind:this={grid}>
+	<Grid template="repeat(4, 1fr) / repeat(3, 1fr)">
+		{#each months as month, i}
+			<!-- <a
 					class:disabled={month.disabled} <- TODO: 적용해야 함
 					class:selected={$store.month === i && $store.year === month.year}
 					href="#selectMonth"
 					on:click|preventDefault={select(month)}
 				> -->
-		<a
-			href="#selectMonth"
-			class:selected={$store.month === i && $store.year === month.year}
-			on:click|preventDefault={select(month)}
-		>
-			{month.label}
-		</a>
-	{/each}
-</Grid>
+			<a
+				href="#selectMonth"
+				class:selected={$store.month === i && $store.year === month.year}
+				on:click|preventDefault={select(month)}
+			>
+				{month.label}
+			</a>
+		{/each}
+	</Grid>
+</InfiniteGrid>
 
-<!-- </InfiniteGrid>
-</div> -->
+<!--</div> -->
 
 <style>
 	div {

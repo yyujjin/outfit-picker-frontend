@@ -30,28 +30,38 @@
 
 	let inRange = [-Infinity, Infinity];
 	const initialized = writable(false);
-	const dim = writable({ w: 0, h: 0 });
+	const dim = writable({ w: 0, h: 0 }); // bind:clientHeight 설정 바인딩으로 값 지정됨
 	const offset = spring(0, { stiffness, damping });
 	export const visibleData = derived(
+		// 첫 번째 인자: 스토어
+		// 두 번째 인자: 스토어가 변경될 때 실행되는 함수
 		[dim, offset, initialized, forceUpdate],
 		([{ w, h }, $o, $initialized, $force]) => {
 			console.log(w, h);
+			// console.log('o', $o);
 			if (!w || !h || !$initialized) return [];
 			if ($o < inRange[0] || $o > inRange[1]) return $visibleData;
 			const divisibleHeight = cellCount > 1 ? h + (cellCount - (h % cellCount)) : h;
 			const cellHeight = h / cellCount;
 			const start = Math.max(-1, Math.floor((-1 * $o) / cellHeight) - 1);
+			console.log('start', start);
 			const baseOffset = $o % cellHeight;
-			return Array(cellCount + 2)
+			console.log('baseOffset', baseOffset);
+			const result = Array(cellCount + 2) // TODO 똑같은 표를 3개를 만든다??
 				.fill(0)
 				.map((_, i) => {
 					const index = i + start;
 					const pos = baseOffset + (i - 1) * cellHeight;
-					if (index < 0 || index >= itemCount) return undefined;
-					const data = $force || !useCache ? get(index) : getCached(index);
+					// if (index < 0 || index >= itemCount) return undefined;
+					// const data = $force || !useCache ? get(index) : getCached(index);
+					// return { data, pos, index };
+					const data = get(index);
 					return { data, pos, index };
-				})
-				.filter(Boolean);
+				});
+
+			const filtered = result.filter(Boolean); // 왜 필요하지??
+			console.log(result, filtered);
+			return filtered;
 		},
 		[]
 	);
@@ -72,10 +82,11 @@
 </script>
 
 <div class="grid" style={gridStyle} bind:clientHeight={$dim.h} bind:clientWidth={$dim.w}>
-	{#each $visibleData as obj (obj.data?.[idKey] || obj.index)}
-		<div style="transform: translateY({obj.pos}px)">
-			<slot {...obj.data} index={obj.index} />
-		</div>
+	{#each $visibleData as obj}
+		<!-- {#each $visibleData as obj (obj.data?.[idKey] || obj.index)} -->
+		<!-- <div style="transform: translateY({obj.pos}px)"> -->
+		<slot {...obj.data} index={obj.index} />
+		<!-- </div> -->
 	{/each}
 </div>
 

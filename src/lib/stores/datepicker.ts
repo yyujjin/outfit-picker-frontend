@@ -90,9 +90,9 @@ const get = ({ selected, start, end, startOfWeekIndex = 0, shouldEnlargeDay = fa
 				activeView: newActiveView
 			}));
 		},
-		// setYear(year) {
-		// 	update(updateSelected(year, 'year'));
-		// },
+		setYear(year) {
+			update(updateSelected(year, 'year'));
+		},
 		setMonth(month: number) {
 			update(updateSelected(month, 'month'));
 		},
