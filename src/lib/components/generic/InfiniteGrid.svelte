@@ -39,16 +39,14 @@
 		([{ w, h }, $o, $initialized, $force]) => {
 			if (!w || !h || !$initialized) return [];
 			if ($o < inRange[0] || $o > inRange[1]) return $visibleData;
-			const divisibleHeight = cellCount > 1 ? h + (cellCount - (h % cellCount)) : h;
-			const cellHeight = h / cellCount;
-			const start = Math.max(-1, Math.floor((-1 * $o) / cellHeight) - 1);
-			console.log('start', start);
-			const baseOffset = $o % cellHeight;
-			console.log('baseOffset', baseOffset);
+			// const divisibleHeight = cellCount > 1 ? h + (cellCount - (h % cellCount)) : h;
+			// const cellHeight = h / cellCount;
+			// const start = Math.max(-1, Math.floor((-1 * $o) / cellHeight) - 1);
+			// const baseOffset = $o % cellHeight;
 			const result = Array(cellCount) //Array(cellCount + 2) // TODO 똑같은 표를 3개를 만든다??
 				.fill(0)
 				.map((_, i) => {
-					const index = i + start + 1; // 기존 코드: i + start. 지금은 중간 위치 데이터 하나만 만들기위해 1 더함
+					//const index = i + start
 					// const pos = baseOffset + (i - 1) * cellHeight;
 					// if (index < 0 || index >= itemCount) return undefined;
 					// const data = $force || !useCache ? get(index) : getCached(index);
@@ -59,7 +57,6 @@
 				});
 
 			const filtered = result.filter(Boolean); // 왜 필요하지??
-			console.log(result, filtered);
 			return filtered;
 		},
 		[]

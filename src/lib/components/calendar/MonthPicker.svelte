@@ -13,10 +13,11 @@
 	let grid; //InfiniteGrid에서 사용함
 
 	const get = (index: number) => ({
+		// TODO 스크롤 시 index 값이 필요한 것으로 보이나 지금은 현재 year만 사용
 		months: Array(12)
 			.fill(0)
 			.map((d, i) => {
-				const year = $store.start.getFullYear() + index; // TODO year을 함수 밖에서 변수로 관리하면 안되나? 왜 중복시키는거지
+				const year = $store.year; //$store.start.getFullYear() + index;
 				const month = dayjs(new Date(year, i, 1));
 				return {
 					year,
@@ -37,7 +38,6 @@
 	}
 
 	const select = (month: Month) => () => {
-		debugger;
 		if (month.disabled) return;
 		store.setMonth(month.index);
 		close();
@@ -49,6 +49,15 @@
 
 	const updateIndex = ({ detail: { step: newIndex } }) => {
 		store.add(newIndex - yearIndex, 'year', ['month', 'date']);
+	};
+
+	const isSelected = (
+		month: { disabled: boolean; index: number; label: string; year: number },
+		i: number
+	) => {
+		// TODO i를 받을 필요 없이 month의 index 로도 비교할 수 있지 않나?
+		console.log(month);
+		return $store.month === i && $store.year === month.year;
 	};
 
 	const KEY_MAPPINGS = {
@@ -82,7 +91,7 @@
 				> -->
 			<a
 				href="#selectMonth"
-				class:selected={$store.month === i && $store.year === month.year}
+				class:selected={isSelected(month, i)}
 				on:click|preventDefault={select(month)}
 			>
 				{month.label}

@@ -58,7 +58,7 @@ const get = ({ selected, start, end, startOfWeekIndex = 0, shouldEnlargeDay = fa
 			const vector = this.getSelectableVector(date);
 			if (vector === 0) return true; // 설정한 시작과 종료 날짜 범위안에 있다면
 			if (!clamping.length) return false;
-			debugger; // 아래는 언제 실행될까
+			// monthPicker에서 isSelectable(month, ['date']) 형태로 호출
 			const clamped = this.clampValue(dayjs(date), clamping).toDate();
 			return this.isSelectable(clamped);
 		},
