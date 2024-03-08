@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	--sc-theme-calendar-maxWidth: 100vw;
+	--sc-theme-calendar-width: 600px;
+	--sc-theme-calendar-legend-height: 45px;
+}

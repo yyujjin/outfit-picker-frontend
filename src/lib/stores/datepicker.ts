@@ -45,6 +45,8 @@ const get = ({ selected, start, end, startOfWeekIndex = 0, shouldEnlargeDay = fa
 		// enlargeDay(enlargeDay = true) {
 		// 	update((state) => ({ ...state, enlargeDay }));
 		// },
+		// 달력 컨트롤러에서 동일한 데이터 3개가 만들어짐.
+		// -1: 시작, 0: 중간, 1: 끝
 		getSelectableVector(date: Date) {
 			// 오ㅐ 이름이 벡터일까
 			const { start, end } = this.getState();
@@ -63,9 +65,9 @@ const get = ({ selected, start, end, startOfWeekIndex = 0, shouldEnlargeDay = fa
 		clampValue(day: dayjs.Dayjs, clampable): dayjs.Dayjs {
 			const vector = this.getSelectableVector(day.toDate());
 			if (vector === 0) return day;
-			debugger; // 아래는 언제 실행될까
 			const boundaryKey = vector === 1 ? 'end' : 'start';
 			const boundary = dayjs(this.getState()[boundaryKey]);
+			// 왜 이렇게 reduce로 하는건지 잘 이해되지 않는다
 			return clampable.reduce((day, type) => day[type](boundary[type]()), day);
 		},
 		add(amount: number, unit: 'month' | 'year', clampable = []) {

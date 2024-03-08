@@ -37,8 +37,6 @@
 		// 두 번째 인자: 스토어가 변경될 때 실행되는 함수
 		[dim, offset, initialized, forceUpdate],
 		([{ w, h }, $o, $initialized, $force]) => {
-			console.log(w, h);
-			// console.log('o', $o);
 			if (!w || !h || !$initialized) return [];
 			if ($o < inRange[0] || $o > inRange[1]) return $visibleData;
 			const divisibleHeight = cellCount > 1 ? h + (cellCount - (h % cellCount)) : h;
@@ -47,16 +45,17 @@
 			console.log('start', start);
 			const baseOffset = $o % cellHeight;
 			console.log('baseOffset', baseOffset);
-			const result = Array(cellCount + 2) // TODO 똑같은 표를 3개를 만든다??
+			const result = Array(cellCount) //Array(cellCount + 2) // TODO 똑같은 표를 3개를 만든다??
 				.fill(0)
 				.map((_, i) => {
-					const index = i + start;
-					const pos = baseOffset + (i - 1) * cellHeight;
+					const index = i + start + 1; // 기존 코드: i + start. 지금은 중간 위치 데이터 하나만 만들기위해 1 더함
+					// const pos = baseOffset + (i - 1) * cellHeight;
 					// if (index < 0 || index >= itemCount) return undefined;
 					// const data = $force || !useCache ? get(index) : getCached(index);
 					// return { data, pos, index };
 					const data = get(index);
-					return { data, pos, index };
+					// return { data, pos, index };
+					return { data, index };
 				});
 
 			const filtered = result.filter(Boolean); // 왜 필요하지??
@@ -75,7 +74,7 @@
 	$: gridStyle = `grid-template-${type}: repeat(${cellCount}, 1fr);`;
 	$: {
 		if ($dim.w && $dim.h) {
-			updateOffset(($dim.h / cellCount) * index * -1);
+			//updateOffset(($dim.h / cellCount) * index * -1); 스크롤 기능 넣을 때 사용
 			if (!$initialized) initialized.set(true);
 		}
 	}

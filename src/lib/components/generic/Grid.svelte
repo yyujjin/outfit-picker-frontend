@@ -2,7 +2,7 @@
 	export let template = 'repeat(4, 1fr) / repeat(3, 1fr)';
 </script>
 
-<div class="grid border gap-1 h-full" style="grid-template: {template};">
+<div class="grid bg-gray-100 gap-px h-full" style="grid-template: {template};">
 	<slot />
 </div>
 

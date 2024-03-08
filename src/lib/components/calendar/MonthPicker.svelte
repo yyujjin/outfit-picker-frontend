@@ -22,7 +22,7 @@
 					year,
 					label: month.format('MMM'),
 					index: i,
-					disabled: !store.isSelectable(month, ['date']) // TODO 분석하기
+					disabled: !store.isSelectable(month, ['date'])
 				};
 			})
 	});
