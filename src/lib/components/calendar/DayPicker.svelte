@@ -55,12 +55,10 @@
 		return firstPartialYear + fullYears + lastPartialYear;
 	};
 
-	console.group('dayPicker');
 	const get = (index: number) => {
 		const d = dayjs($store.start).add(index, 'month');
 		return { days: store.getCalendarPage(d.month(), d.year()) };
 	};
-	console.groupEnd();
 
 	// const updateIndex = ({ detail: { step: newIndex } }) => {
 	// 	store.add(newIndex - monthIndex, 'month', ['date']);
@@ -68,7 +66,7 @@
 
 	// $: totalMonths = calPagesBetweenDates($store.start, $store.end);
 	$: monthIndex = calPagesBetweenDates($store.start, $store.selected) - 1;
-	let { days } = get(1200);
+	$: data = get(monthIndex);
 
 	// $: initialY = monthIndex * scrollStep;
 </script>
@@ -93,7 +91,7 @@
 				let:index
 			>-->
 	<Grid template="repeat(6, 1fr) / repeat(7, 1fr)">
-		{#each days as day, i (day)}
+		{#each data.days as day, i (day)}
 			<!-- {#if !$store.enlargeDay || index !== monthIndex || !dayjs(day.date).isSame($store.selected)} -->
 			<!-- <a
 				href="#pickday"
