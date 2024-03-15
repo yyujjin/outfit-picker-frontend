@@ -105,7 +105,7 @@
 				in:receive|local={{ key }}
 			> -->
 			<a
-				class="text-base"
+				class="text-base relative"
 				href="#pickday"
 				on:keydown|preventDefault
 				on:click|preventDefault={select(day.date)}
@@ -113,7 +113,9 @@
 				class:selected={dayjs(day.date).isSame($store.selected, 'day')}
 				class:outsider={day.outsider}
 			>
-				{day.date.getDate()}
+				<div class="absolute right-2.5 top-1">
+					{day.date.getDate()}
+				</div>
 			</a>
 			<!-- {/if} -->
 		{/each}
