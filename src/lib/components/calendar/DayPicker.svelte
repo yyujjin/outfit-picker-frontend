@@ -68,6 +68,11 @@
 	$: monthIndex = calPagesBetweenDates($store.start, $store.selected) - 1;
 	$: data = get(monthIndex);
 
+	let isButtonShow = false
+	const onMouseEnter = () => {
+		isButtonShow = true
+	}
+
 	// $: initialY = monthIndex * scrollStep;
 </script>
 
@@ -112,7 +117,11 @@
 				class:disabled={!store.isSelectable(day.date)}
 				class:selected={dayjs(day.date).isSame($store.selected, 'day')}
 				class:outsider={day.outsider}
+				on:mouseenter={onMouseEnter}
 			>
+				{#if isButtonShow}
+					<button class="btn btn-xs left-2.5 top-1">+</button>
+				{/if}
 				<div class="absolute right-2.5 top-1">
 					{day.date.getDate()}
 				</div>
