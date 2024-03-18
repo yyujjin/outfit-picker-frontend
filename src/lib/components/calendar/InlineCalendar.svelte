@@ -8,6 +8,7 @@
 	// import CrossfadeBoundary from './generic/crossfade/CrossfadeBoundary.svelte';
 	import { calendar as calendarDefaults } from '$lib/config/defaults.js';
 	import Calendar from './Calendar.svelte';
+	import Modal from '../Modal.svelte';
 
 	export let selected = calendarDefaults.selected;
 	export let start = calendarDefaults.start;
@@ -34,6 +35,8 @@
 </script>
 
 <Calendar />
+<button class="btn" onclick="my_modal_2.showModal()">open modal</button>
+<Modal />
 
 <!-- <CrossfadeBoundary>
 	<Theme {defaultTheme} {theme} let:style>

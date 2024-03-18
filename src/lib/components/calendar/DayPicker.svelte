@@ -5,6 +5,7 @@
 	import { storeContextKey } from '$lib/context.js';
 	// import KeyControls from '$lib/components/generic/KeyControls.svelte';
 	import Grid from '$lib/components/generic/Grid.svelte';
+	import DayPickerItem from './DayPickerItem.svelte';
 	// import InfiniteGrid from '$lib/components/generic/InfiniteGrid.svelte';
 	// import Crossfade from '../generic/crossfade/Crossfade.svelte';
 	// import scrollable from '$lib/directives/scrollable';
@@ -68,12 +69,12 @@
 	$: monthIndex = calPagesBetweenDates($store.start, $store.selected) - 1;
 	$: data = get(monthIndex);
 
-	let isButtonShow = false
-	const onMouseEnter = () => {
-		isButtonShow = true
-	}
-
 	// $: initialY = monthIndex * scrollStep;
+
+	const addContents = () =>{
+        alert('click')
+		//my_modal_2.showModal()
+    }
 </script>
 
 <!-- <KeyControls {...KEY_MAPPINGS} ctx={['days']} /> -->
@@ -109,23 +110,7 @@
 				out:send|local={{ key }} 
 				in:receive|local={{ key }}
 			> -->
-			<a
-				class="text-base relative"
-				href="#pickday"
-				on:keydown|preventDefault
-				on:click|preventDefault={select(day.date)}
-				class:disabled={!store.isSelectable(day.date)}
-				class:selected={dayjs(day.date).isSame($store.selected, 'day')}
-				class:outsider={day.outsider}
-				on:mouseenter={onMouseEnter}
-			>
-				{#if isButtonShow}
-					<button class="btn btn-xs left-2.5 top-1">+</button>
-				{/if}
-				<div class="absolute right-2.5 top-1">
-					{day.date.getDate()}
-				</div>
-			</a>
+			<DayPickerItem on:daySelect={select(day.date)} {day} on:addContents={addContents} />
 			<!-- {/if} -->
 		{/each}
 	</Grid>
