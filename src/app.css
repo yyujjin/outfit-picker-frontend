@@ -4,6 +4,12 @@
  
 @layer base {
   :root {
+    /* calendar css */
+    --sc-theme-calendar-maxWidth: 100vw;
+    --sc-theme-calendar-width: 600px;
+    --sc-theme-calendar-legend-height: 45px;
+  
+    /* shacdn css */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
  
