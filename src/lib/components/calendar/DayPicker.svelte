@@ -25,7 +25,7 @@
 
 	// const add = (amount) => () => store.add(amount, 'day');
 
-	const select = (day: Date) => () => {
+	const select = (day: Date) => () => { // TODO 제거필요. 날짜를 선택할 일은 없음
 		if (!store.isSelectable(day)) return;
 		// store에 selected 설정
 		store.setDay(day || $store.selected); // day가 없을 수 있나??

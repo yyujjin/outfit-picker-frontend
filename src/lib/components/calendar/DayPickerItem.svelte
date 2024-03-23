@@ -20,9 +20,7 @@
     class="text-base relative"
     href="#pickday"
     on:keydown|preventDefault
-    on:click|preventDefault={() => dispatch('daySelect')}
-    class:disabled={!store.isSelectable(day.date)}
-    class:selected={dayjs(day.date).isSame($store.selected, 'day')}
+    class:disabled={!store.isSelectable(day.date)}    
     class:outsider={day.outsider}
     on:mouseenter={onMouseEnter}
     on:mouseleave={onMouseLeave}
@@ -30,7 +28,13 @@
     {#if isButtonShow}
         <button class="btn btn-xs left-2.5 top-1 absolute" on:click={()=>dispatch('addContents')}>+</button>
     {/if} 
-    <div class="absolute right-2.5 top-1">
+    <div class="absolute right-2.5 top-1" class:today={dayjs(day.date).isSame($store.today, 'day')}>
         {day.date.getDate()}
     </div>
 </a>
+
+<style lang="postcss">
+    .today {
+        @apply bg-accent text-white opacity-100 rounded-full px-1 py-0.5 
+    }
+</style>

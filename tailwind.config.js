@@ -2,10 +2,6 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
 const config = {
-	plugins: [require("daisyui")],
-	daisyui: {
-		themes: ['light', 'dark', 'bumblebee']
-	},
 	darkMode: ["class"],
 	content: ["./src/**/*.{html,js,svelte,ts}"],
   safelist: ["dark"],
@@ -40,10 +36,11 @@ const config = {
 					DEFAULT: "hsl(var(--muted) / <alpha-value>)",
 					foreground: "hsl(var(--muted-foreground) / <alpha-value>)"
 				},
-				accent: {
-					DEFAULT: "hsl(var(--accent) / <alpha-value>)",
-					foreground: "hsl(var(--accent-foreground) / <alpha-value>)"
-				},
+				// daisyUI와 충돌하여 주석처리
+				// accent: {
+				// 	DEFAULT: "hsl(var(--accent) / <alpha-value>)",
+				// 	foreground: "hsl(var(--accent-foreground) / <alpha-value>)"
+				// },
 				popover: {
 					DEFAULT: "hsl(var(--popover) / <alpha-value>)",
 					foreground: "hsl(var(--popover-foreground) / <alpha-value>)"
@@ -62,6 +59,10 @@ const config = {
 				sans: [...fontFamily.sans]
 			}
 		}
+	},
+	plugins: [require("daisyui")],
+	daisyui: {
+		themes: ['light', 'dark', 'bumblebee']
 	},
 };
 

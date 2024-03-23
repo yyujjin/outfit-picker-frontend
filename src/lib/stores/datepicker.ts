@@ -22,6 +22,7 @@ const get = ({ selected, start, end, startOfWeekIndex = 0, shouldEnlargeDay = fa
 	const { subscribe, set, update } = writable({
 		startOfWeekIndex,
 		selected,
+		today: new Date(),
 		start: zeroDay(start),
 		end: zeroDay(end),
 		shouldEnlargeDay, // 무슨 설정임?

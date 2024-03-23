@@ -38,12 +38,6 @@
 		@apply bg-gray-200
 		/* background: var(--sc-theme-calendar-colors-background-hover); */;
 	}
-	.grid > :global(*.selected > div) {
-		@apply bg-accent text-white opacity-100 rounded-full w-6
-		/* background: var(--sc-theme-calendar-colors-background-highlight);
-		color: var(--sc-theme-calendar-colors-text-highlight);
-		opacity: 1; */;
-	}
 	.grid > :global(*.outsider) {
 		/* opacity: var(--sc-theme-calendar-grid-outsiderOpacity); */
 		opacity: 0.6;
