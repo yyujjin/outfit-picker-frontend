@@ -35,6 +35,6 @@
 
 <style lang="postcss">
     .today {
-        @apply bg-accent text-white opacity-100 rounded-full px-1 py-0.5 
+        @apply bg-accent text-white opacity-100 rounded-full w-7 h-7 leading-7
     }
 </style>

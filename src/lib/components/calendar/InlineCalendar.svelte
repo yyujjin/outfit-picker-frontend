@@ -8,6 +8,7 @@
 	// import CrossfadeBoundary from './generic/crossfade/CrossfadeBoundary.svelte';
 	import { calendar as calendarDefaults } from '$lib/config/defaults.js';
 	import Calendar from './Calendar.svelte';
+	import OutfitDialog from '../OutfitDialog.svelte';
 
 	export let selected = calendarDefaults.selected;
 	export let start = calendarDefaults.start;
@@ -34,6 +35,7 @@
 </script>
 
 <Calendar />
+<OutfitDialog />
 
 <!-- <CrossfadeBoundary>
 	<Theme {defaultTheme} {theme} let:style>

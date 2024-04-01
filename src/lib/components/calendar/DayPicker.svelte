@@ -6,6 +6,7 @@
 	// import KeyControls from '$lib/components/generic/KeyControls.svelte';
 	import Grid from '$lib/components/generic/Grid.svelte';
 	import DayPickerItem from './DayPickerItem.svelte';
+	import { dialogOpen } from '$lib/stores/coordie.js';
 	// import InfiniteGrid from '$lib/components/generic/InfiniteGrid.svelte';
 	// import Crossfade from '../generic/crossfade/Crossfade.svelte';
 	// import scrollable from '$lib/directives/scrollable';
@@ -72,10 +73,11 @@
 	// $: initialY = monthIndex * scrollStep;
 
 	const addContents = () =>{
-        alert('click')
-		//my_modal_2.showModal()
+        dialogOpen.set(true)
     }
 </script>
+
+
 
 <!-- <KeyControls {...KEY_MAPPINGS} ctx={['days']} /> -->
 
