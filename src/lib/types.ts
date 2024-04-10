@@ -1,6 +1,6 @@
 export interface clothesType {
-	itemId: number;
+	id: number;
 	image: string;
 	category: string;
-	itemName: string;
+	name: string;
 }

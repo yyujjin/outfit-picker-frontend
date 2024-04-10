@@ -1,13 +1,13 @@
 <script lang="ts">
 	import hanger from '$lib/images/hanger.png';
 	import type { clothesType } from '$lib/types.js';
-	import axios from 'axios';
+	import { createEventDispatcher } from 'svelte';
 
 	export let data: clothesType;
 
+	const dispatch = createEventDispatcher()
 	const onRemove = async () => {
-		await axios.delete(`/items/${data.itemId}`);
-		alert('옷 삭제');
+		dispatch('remove',  data.id)		
 	};
 </script>
 
@@ -16,10 +16,10 @@
 		<img src={data.image || hanger} alt="clothes" />
 	</figure>
 	<div class="card-body">
-		<h2 class="card-title">{data.category}</h2>
-		<p>{data.itemName}</p>
-		<div class="card-actions justify-end">
-			<button class="btn btn-accent btn-md" on:click={onRemove}>Remove</button>
+		<h2 class="card-title">{data.name}</h2>
+		<div class="card-actions justify-between items-center">
+			<p class="text-gray-600">{data.category}</p>
+			<button class="btn btn-accent btn-sm" on:click={onRemove}>Remove</button>
 		</div>
 	</div>
 </div>

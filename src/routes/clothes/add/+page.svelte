@@ -27,7 +27,7 @@
 {#await promise}
 	loading...
 {:then categories}
-	<form class="h-screen space-y-5" on:submit={onSubmit}>
+	<form class="flex flex-col justify-center mx-auto space-y-5 h-full" on:submit={onSubmit}>
 		<div>
 			<h2 class="text-2xl">Add Clothes</h2>
 			<p>Enter your clothes information to add to your closet.</p>
