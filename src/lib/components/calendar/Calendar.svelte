@@ -11,11 +11,7 @@
 </script>
 
 <!-- <CrossfadeProvider let:key let:send let:receive> -->
-<div
-	in:receive|local={{ key }}
-	out:send|local={{ key }}
-	class="grid w-screen max-w-screen-xl shadow bg-white text-base text-center"
->
+<div class="grid w-screen max-w-screen-xl shadow bg-white text-base text-center">
 	<DatepickerControls />
 	<div class="contents">
 		{#if $store.activeView === 'days'}

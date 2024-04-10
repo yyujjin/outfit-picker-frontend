@@ -72,8 +72,9 @@
 
 	// $: initialY = monthIndex * scrollStep;
 
-	const addContents = () =>{
-        dialogOpen.set(true)
+	const addContents = (day: Date) =>{
+		store.setSelected(day);
+        dialogOpen.set(true)		
     }
 </script>
 
@@ -112,7 +113,7 @@
 				out:send|local={{ key }} 
 				in:receive|local={{ key }}
 			> -->
-			<DayPickerItem on:daySelect={select(day.date)} {day} on:addContents={addContents} />
+			<DayPickerItem on:daySelect={select(day.date)} {day} on:addContents={addContents(day.date)} />
 			<!-- {/if} -->
 		{/each}
 	</Grid>

@@ -159,6 +159,12 @@ const get = ({ selected, start, end, startOfWeekIndex = 0, shouldEnlargeDay = fa
 			}
 
 			return days;
+		},
+		setSelected(date: Date) {			
+			update(({ selected, ...state }) => ({
+				...state,
+				selected: date
+			}));
 		}
 	};
 };

@@ -8,7 +8,7 @@
 			<ul class="flex gap-5">
 				<li><a href="/" class="font-bold text-gray-700">Today's Outfit</a></li>
 				<li><a href="/">Clothes</a></li>
-				<li><a href="/codi">Outfit</a></li>
+				<li><a href="/outfit">Outfit</a></li>
 			</ul>
 		</div>
 		<div>
