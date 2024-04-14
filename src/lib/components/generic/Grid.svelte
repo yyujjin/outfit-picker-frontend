@@ -33,11 +33,6 @@
 			font-size: calc(var(--sc-theme-calendar-font-regular) * 0.75);
 		}
 	}
-
-	.grid > :global(*:hover) {
-		@apply bg-gray-200
-		/* background: var(--sc-theme-calendar-colors-background-hover); */;
-	}
 	.grid > :global(*.outsider) {
 		/* opacity: var(--sc-theme-calendar-grid-outsiderOpacity); */
 		opacity: 0.6;
