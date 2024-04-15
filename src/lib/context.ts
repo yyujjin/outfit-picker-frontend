@@ -1,5 +1,6 @@
 const storeContextKey = {};
+const outfitContextKey = 'outfitContext';
 // const keyControlsContextKey = {};
 // const themeContextKey = {};
 
-export { storeContextKey };
+export { storeContextKey, outfitContextKey };

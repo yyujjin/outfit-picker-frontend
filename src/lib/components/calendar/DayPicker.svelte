@@ -2,17 +2,17 @@
 	import { getContext } from 'svelte';
 	import dayjs from 'dayjs';
 
-	import { storeContextKey } from '$lib/context.js';
+	import { outfitContextKey, storeContextKey } from '$lib/context.js';
 	// import KeyControls from '$lib/components/generic/KeyControls.svelte';
 	import Grid from '$lib/components/generic/Grid.svelte';
 	import DayPickerItem from './DayPickerItem.svelte';
-	import { dialogOpen } from '$lib/stores/coordie.js';
 	// import InfiniteGrid from '$lib/components/generic/InfiniteGrid.svelte';
 	// import Crossfade from '../generic/crossfade/Crossfade.svelte';
 	// import scrollable from '$lib/directives/scrollable';
 	// import { scrollStep } from '$lib/config/scroll';
 
 	const store = getContext(storeContextKey);
+	const outfitStore = getContext(outfitContextKey);
 
 	// const duration = 450;
 
@@ -26,7 +26,8 @@
 
 	// const add = (amount) => () => store.add(amount, 'day');
 
-	const select = (day: Date) => () => { // TODO 제거필요. 날짜를 선택할 일은 없음
+	const select = (day: Date) => () => {
+		// TODO 제거필요. 날짜를 선택할 일은 없음
 		if (!store.isSelectable(day)) return;
 		// store에 selected 설정
 		store.setDay(day || $store.selected); // day가 없을 수 있나??
@@ -72,13 +73,11 @@
 
 	// $: initialY = monthIndex * scrollStep;
 
-	const addContents = (day: Date) =>{
+	const addContents = (day: Date) => {
 		store.setSelected(day);
-        dialogOpen.set(true)		
-    }
+		outfitStore.init(day);
+	};
 </script>
-
-
 
 <!-- <KeyControls {...KEY_MAPPINGS} ctx={['days']} /> -->
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import dayjs from 'dayjs';
 	import datepickerStore from '$lib/stores/datepicker.js';
-	import { storeContextKey } from '$lib/context.js'; // TODO js
+	import { outfitContextKey, storeContextKey } from '$lib/context.js'; // TODO js
 	import { setContext } from 'svelte';
 	import { derived, writable } from 'svelte/store';
 	// import Theme from '$lib/components/generic/Theme.svelte';
@@ -9,6 +9,7 @@
 	import { calendar as calendarDefaults } from '$lib/config/defaults.js';
 	import Calendar from './Calendar.svelte';
 	import OutfitDialog from '../OutfitDialog.svelte';
+	import outfitStore from '$lib/stores/outfit.js';
 
 	export let selected = calendarDefaults.selected;
 	export let start = calendarDefaults.start;
@@ -23,6 +24,8 @@
 	const focused = writable(false);
 
 	setContext(storeContextKey, store);
+
+	setContext(outfitContextKey, outfitStore());
 	// setContext(
 	// 	keyControlsContextKey,
 	// 	derived([store, focused], ([$s, $focused]) => ($focused ? $s.activeView : undefined))

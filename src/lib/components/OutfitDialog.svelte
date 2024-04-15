@@ -1,25 +1,17 @@
 <script lang="ts">
-    import * as Dialog from "$lib/components/ui/dialog/index.js";
-	import * as RadioGroup from "$lib/components/ui/radio-group/index.js";
-	import { dialogOpen } from "$lib/stores/coordie.js";
-	import { getContext } from "svelte";
-	import { storeContextKey } from '$lib/context.js';
-	import dayjs from "dayjs";
-	import axios from "axios";
-	
-	const store = getContext(storeContextKey);
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import * as RadioGroup from '$lib/components/ui/radio-group/index.js';
+	import { dialogOpen } from '$lib/stores/coordie.js';
+	import { getContext } from 'svelte';
+	import { outfitContextKey, storeContextKey } from '$lib/context.js';
+	import axios from 'axios';
 
-	let date, weather, temperature, photo
+	const store = getContext(outfitContextKey);
 
-	const init = () => {
-		weather = '0'
-		temperature = 20
-		photo = 'photo'		
-	}
-
-	init()
-
-	$: date = dayjs($store.selected).format('YYYY-MM-DD')
+	$: date = $store.date;
+	$: weather = $store.weather;
+	$: temperature = $store.temperature;
+	$: photo = $store.photo;
 
 	const onSubmit = async () => {
 		const data = {
@@ -27,28 +19,33 @@
 			weather: Number(weather),
 			temperature,
 			photo
-		}
-		
+		};
+
 		try {
-			await axios.post('/api/coordis', data)
-		} catch(e) {
-			console.error(e)
+			await axios.post('/api/coordis', data);
+		} catch (e) {
+			console.error(e);
 		}
-	}
+	};
 </script>
 
-<Dialog.Root bind:open={$dialogOpen} onOpenChange={init}>
+<Dialog.Root bind:open={$store.dialogOpen}>
 	<Dialog.Content class="sm:max-w-[425px]">
-	  <Dialog.Header>
-		<Dialog.Title>Record Outfit</Dialog.Title>
-		<Dialog.Description>
-			Let's record today's outfit! 
-		</Dialog.Description>
-	  </Dialog.Header>
-	  <div class="grid grid-cols-1 items-center gap-4 py-4">
+		<Dialog.Header>
+			<Dialog.Title>Record Outfit</Dialog.Title>
+			<Dialog.Description>Let's record today's outfit!</Dialog.Description>
+		</Dialog.Header>
+		<div class="grid grid-cols-1 items-center gap-4 py-4">
 			<div class="form-control">
 				<h2 class="text-md font-semibold text-gray-700">Date</h2>
-				<input type="date" class="input input-bordered input-sm" name="" id="" bind:value={date} disabled>
+				<input
+					type="date"
+					class="input input-bordered input-sm"
+					name=""
+					id=""
+					bind:value={date}
+					disabled
+				/>
 			</div>
 			<div class="form-control">
 				<h2 class="text-md font-semibold text-gray-700">Weather</h2>
@@ -60,17 +57,17 @@
 								<i class="uil {w} text-2xl"></i>
 							</label>
 						</div>
-					{/each}					
+					{/each}
 				</RadioGroup.Root>
 			</div>
 			<div class="form-control">
 				<h2 class="text-md font-semibold text-gray-700">Temperature</h2>
-				<input type="number" class="input input-bordered input-sm" bind:value={temperature}/>
+				<input type="number" class="input input-bordered input-sm" bind:value={temperature} />
 			</div>
-			<input type="hidden" name="photo" bind:value={photo}>
-	  </div>
-	  <Dialog.Footer>
-		<button class="btn btn-primary" on:click={onSubmit}>Submit</button>
-	  </Dialog.Footer>
+			<input type="hidden" name="photo" bind:value={photo} />
+		</div>
+		<Dialog.Footer>
+			<button class="btn btn-primary" on:click={onSubmit}>Submit</button>
+		</Dialog.Footer>
 	</Dialog.Content>
-  </Dialog.Root>
+</Dialog.Root>
