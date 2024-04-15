@@ -1,7 +1,6 @@
 <script lang="ts">
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import * as RadioGroup from '$lib/components/ui/radio-group/index.js';
-	import { dialogOpen } from '$lib/stores/coordie.js';
 	import { getContext } from 'svelte';
 	import { outfitContextKey, storeContextKey } from '$lib/context.js';
 	import axios from 'axios';

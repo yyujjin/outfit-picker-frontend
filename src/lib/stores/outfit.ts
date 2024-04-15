@@ -40,6 +40,16 @@ const outfitStore = () => {
 			const { weather, temperature, photo, date } = this.getState();
 			console.log(temperature);
 			return { weather, temperature, photo, date };
+		},
+		setData(date: Date) {
+			update((state) => ({
+				...state,
+				weather: '1',
+				temperature: 10,
+				photo: 'photo222',
+				date: dayjs(date).format('YYYY-MM-DD'),
+				dialogOpen: true
+			}));
 		}
 	};
 };

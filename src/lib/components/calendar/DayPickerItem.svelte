@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { storeContextKey } from '$lib/context.js';
-	import outfitStore from '$lib/stores/outfit.js';
+	import { outfitContextKey, storeContextKey } from '$lib/context.js';
 	import dayjs from 'dayjs';
 	import { createEventDispatcher, getContext } from 'svelte';
 
@@ -15,10 +14,12 @@
 	};
 
 	const store = getContext(storeContextKey);
+	const outfitStore = getContext(outfitContextKey);
+
 	const dispatch = createEventDispatcher();
 
-	const showOutfit = (day) => {
-		alert(day.date);
+	const showOutfit = (date) => {
+		outfitStore.setData(date);
 	};
 </script>
 
@@ -40,10 +41,10 @@
 	<div class="absolute right-2.5 top-1" class:today={dayjs(day.date).isSame($store.today, 'day')}>
 		{day.date.getDate()}
 	</div>
-	{#if outfitStore().hasOutfit(day)}
+	{#if outfitStore.hasOutfit(day)}
 		<button
 			class="btn btn-sm bg-white shadow-sm mx-2 my-10 flex items-center justify-center"
-			on:click={() => showOutfit(day)}
+			on:click={() => showOutfit(day.date)}
 		>
 			<span class="material-symbols-outlined text-gray-600"> apparel </span>
 		</button>
