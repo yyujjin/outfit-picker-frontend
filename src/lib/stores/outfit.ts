@@ -2,6 +2,10 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { get, writable } from 'svelte/store';
 
+function isSameDate(d1: Date, d2: Date) {
+	return dayjs(d1).isSame(d2, 'date');
+}
+
 const outfitStore = () => {
 	const { subscribe, set, update } = writable({
 		outfits: [],
@@ -20,7 +24,7 @@ const outfitStore = () => {
 		},
 		hasOutfit(date: Date) {
 			const { outfits } = this.getState();
-			return outfits.some((o) => dayjs(date).isSame(o.date, 'date'));
+			return outfits.some((o) => isSameDate(date, o.date));
 		},
 		init(date: Date) {
 			update((state) => ({
@@ -35,17 +39,17 @@ const outfitStore = () => {
 		getState() {
 			return get({ subscribe });
 		},
-		get() {
-			const { weather, temperature, photo, date } = this.getState();
-			console.log(temperature);
-			return { weather, temperature, photo, date };
-		},
 		setData(date: Date) {
+			const { outfits } = this.getState();
+
+			const { weather, temperature, photo } = outfits.find((o) => isSameDate(date, o.date));
+			console.log(weather, temperature);
+
 			update((state) => ({
 				...state,
-				weather: '1',
-				temperature: 10,
-				photo: 'photo222',
+				weather,
+				temperature,
+				photo,
 				date: dayjs(date).format('YYYY-MM-DD'),
 				dialogOpen: true
 			}));
