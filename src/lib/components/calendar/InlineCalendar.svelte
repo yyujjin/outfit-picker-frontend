@@ -25,7 +25,10 @@
 
 	setContext(storeContextKey, store);
 
-	setContext(outfitContextKey, outfitStore());
+	const outfit = outfitStore();
+	setContext(outfitContextKey, outfit);
+
+	let promise = outfit.setOutfitOfMonth();
 	// setContext(
 	// 	keyControlsContextKey,
 	// 	derived([store, focused], ([$s, $focused]) => ($focused ? $s.activeView : undefined))
@@ -37,8 +40,10 @@
 	// $: formatted = dayjs(selected).format(format);
 </script>
 
-<Calendar />
-<OutfitDialog />
+{#await promise then _}
+	<Calendar />
+	<OutfitDialog />
+{/await}
 
 <!-- <CrossfadeBoundary>
 	<Theme {defaultTheme} {theme} let:style>

@@ -16,12 +16,11 @@ const outfitStore = () => {
 		subscribe,
 		fetchData: async (year: number, month: number) => {
 			const { data } = await axios.get(`/api/coordis?year=${year}&month=${month}`);
-			update((state) => ({ ...state, outfits: data }));
-			console.log(data);
+			return data;
 		},
-		hasOutfit(day) {
-			console.log(day.date);
-			return true;
+		hasOutfit(date: Date) {
+			const { outfits } = this.getState();
+			return outfits.some((o) => dayjs(date).isSame(o.date, 'date'));
 		},
 		init(date: Date) {
 			update((state) => ({
@@ -50,6 +49,11 @@ const outfitStore = () => {
 				date: dayjs(date).format('YYYY-MM-DD'),
 				dialogOpen: true
 			}));
+		},
+		async setOutfitOfMonth() {
+			const data = await this.fetchData(2024, 4);
+			update((state) => ({ ...state, outfits: data }));
+			console.log(data);
 		}
 	};
 };
