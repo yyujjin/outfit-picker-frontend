@@ -2,8 +2,9 @@
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import * as RadioGroup from '$lib/components/ui/radio-group/index.js';
 	import { getContext } from 'svelte';
-	import { outfitContextKey, storeContextKey } from '$lib/context.js';
+	import { outfitContextKey } from '$lib/context.js';
 	import axios from 'axios';
+	import { Mode } from '$lib/stores/outfit.js';
 
 	const store = getContext(outfitContextKey);
 
@@ -66,7 +67,11 @@
 			<input type="hidden" name="photo" bind:value={photo} />
 		</div>
 		<Dialog.Footer>
-			<button class="btn btn-primary" on:click={onSubmit}>Submit</button>
+			{#if $store.mode === Mode.ADD}
+				<button class="btn btn-primary" on:click={onSubmit}>Submit</button>
+			{:else}
+				<button class="btn" on:click={() => store.closeDialog()}>Close</button>
+			{/if}
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>

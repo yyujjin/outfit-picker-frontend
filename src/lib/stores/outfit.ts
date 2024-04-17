@@ -6,6 +6,11 @@ function isSameDate(d1: Date, d2: Date) {
 	return dayjs(d1).isSame(d2, 'date');
 }
 
+export enum Mode {
+	ADD,
+	VIEW
+}
+
 const outfitStore = () => {
 	const { subscribe, set, update } = writable({
 		outfits: [],
@@ -13,7 +18,8 @@ const outfitStore = () => {
 		weather: '0',
 		temperature: 20,
 		photo: '',
-		dialogOpen: false
+		dialogOpen: false,
+		mode: Mode.ADD
 	});
 	return {
 		set,
@@ -33,7 +39,8 @@ const outfitStore = () => {
 				temperature: 20,
 				photo: 'photo',
 				date: dayjs(date).format('YYYY-MM-DD'),
-				dialogOpen: true
+				dialogOpen: true,
+				mode: Mode.ADD
 			}));
 		},
 		getState() {
@@ -50,13 +57,17 @@ const outfitStore = () => {
 				temperature,
 				photo,
 				date: dayjs(date).format('YYYY-MM-DD'),
-				dialogOpen: true
+				dialogOpen: true,
+				mode: Mode.VIEW
 			}));
 		},
 		async setOutfitOfMonth() {
 			const data = await this.fetchData(2024, 4);
 			update((state) => ({ ...state, outfits: data }));
 			console.log(data);
+		},
+		closeDialog() {
+			update((state) => ({ ...state, dialogOpen: false }));
 		}
 	};
 };
