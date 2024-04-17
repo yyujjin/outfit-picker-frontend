@@ -23,7 +23,21 @@
 
 		try {
 			await axios.post('/api/coordis', data);
+			store.closeDialog();
 		} catch (e) {
+			console.error(e);
+		}
+	};
+
+	const onRemove = async () => {
+		if (!confirm('Are you sure you want to delete?')) {
+			return;
+		}
+		try {
+			await store.deleteOutfit();
+			store.closeDialog();
+		} catch (e) {
+			alert('Network Error!');
 			console.error(e);
 		}
 	};
@@ -66,12 +80,16 @@
 			</div>
 			<input type="hidden" name="photo" bind:value={photo} />
 		</div>
-		<Dialog.Footer>
-			{#if $store.mode === Mode.ADD}
+		{#if $store.mode === Mode.ADD}
+			<div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
 				<button class="btn btn-primary" on:click={onSubmit}>Submit</button>
-			{:else}
+			</div>
+		{:else}
+			<div class="flex justify-between">
+				<button class="btn btn-accent" on:click={onRemove}>Remove</button>
+
 				<button class="btn" on:click={() => store.closeDialog()}>Close</button>
-			{/if}
-		</Dialog.Footer>
+			</div>
+		{/if}
 	</Dialog.Content>
 </Dialog.Root>

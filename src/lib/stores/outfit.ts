@@ -15,6 +15,7 @@ const outfitStore = () => {
 	const { subscribe, set, update } = writable({
 		outfits: [],
 		date: '',
+		id: 0,
 		weather: '0',
 		temperature: 20,
 		photo: '',
@@ -31,6 +32,9 @@ const outfitStore = () => {
 		hasOutfit(date: Date) {
 			const { outfits } = this.getState();
 			return outfits.some((o) => isSameDate(date, o.date));
+		},
+		isSameDate(d1: Date, d2: Date) {
+			return dayjs(d1).isSame(d2, 'date');
 		},
 		init(date: Date) {
 			update((state) => ({
@@ -49,10 +53,11 @@ const outfitStore = () => {
 		setData(date: Date) {
 			const { outfits } = this.getState();
 
-			const { weather, temperature, photo } = outfits.find((o) => isSameDate(date, o.date));
+			const { id, weather, temperature, photo } = outfits.find((o) => isSameDate(date, o.date));
 
 			update((state) => ({
 				...state,
+				id,
 				weather,
 				temperature,
 				photo,
@@ -68,6 +73,12 @@ const outfitStore = () => {
 		},
 		closeDialog() {
 			update((state) => ({ ...state, dialogOpen: false }));
+		},
+		async deleteOutfit() {
+			const { id } = this.getState();
+			console.log(id);
+			await axios.delete(`/api/coordis/${id}`);
+			this.setOutfitOfMonth();
 		}
 	};
 };
