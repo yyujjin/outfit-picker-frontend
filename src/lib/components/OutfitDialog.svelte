@@ -7,10 +7,10 @@
 
 	const store = getContext(outfitContextKey);
 
-	$: date = $store.date;
-	$: weather = $store.weather;
-	$: temperature = $store.temperature;
-	$: photo = $store.photo;
+	let date = $store.date;
+	let weather = $store.weather.toString();
+	let temperature = $store.temperature;
+	let photo = $store.photo;
 
 	const onSubmit = async () => {
 		const data = {

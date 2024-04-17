@@ -42,7 +42,9 @@
 
 {#await promise then _}
 	<Calendar />
-	<OutfitDialog />
+	{#if $outfit.dialogOpen}
+		<OutfitDialog />
+	{/if}
 {/await}
 
 <!-- <CrossfadeBoundary>

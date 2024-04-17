@@ -43,7 +43,6 @@ const outfitStore = () => {
 			const { outfits } = this.getState();
 
 			const { weather, temperature, photo } = outfits.find((o) => isSameDate(date, o.date));
-			console.log(weather, temperature);
 
 			update((state) => ({
 				...state,
