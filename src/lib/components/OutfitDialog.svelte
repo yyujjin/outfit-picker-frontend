@@ -22,7 +22,7 @@
 		};
 
 		try {
-			await axios.post('/api/coordis', data);
+			await store.postOutfit(data);
 			store.closeDialog();
 		} catch (e) {
 			console.error(e);

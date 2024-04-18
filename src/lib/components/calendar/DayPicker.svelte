@@ -58,9 +58,15 @@
 		return firstPartialYear + fullYears + lastPartialYear;
 	};
 
-	const get = (index: number) => {
+	const get = (index: number, outfits) => {
 		const d = dayjs($store.start).add(index, 'month');
-		return { days: store.getCalendarPage(d.month(), d.year()) };
+		const days = store.getCalendarPage(d.month(), d.year());
+		return {
+			days: days.map((day) => ({
+				...day,
+				hasOutfit: outfits.some((o) => outfitStore.isSameDate(day.date, o.date))
+			}))
+		};
 	};
 
 	// const updateIndex = ({ detail: { step: newIndex } }) => {
@@ -69,7 +75,7 @@
 
 	// $: totalMonths = calPagesBetweenDates($store.start, $store.end);
 	$: monthIndex = calPagesBetweenDates($store.start, $store.selected) - 1;
-	$: data = get(monthIndex);
+	$: data = get(monthIndex, $outfitStore.outfits);
 
 	// $: initialY = monthIndex * scrollStep;
 

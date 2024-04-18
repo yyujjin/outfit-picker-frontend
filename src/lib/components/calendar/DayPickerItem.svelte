@@ -41,7 +41,7 @@
 	<div class="absolute right-2.5 top-1" class:today={dayjs(day.date).isSame($store.today, 'day')}>
 		{day.date.getDate()}
 	</div>
-	{#if outfitStore.hasOutfit(day.date)}
+	{#if day.hasOutfit}
 		<button
 			class="btn btn-sm bg-white shadow-sm mx-2 my-10 flex items-center justify-center"
 			on:click={() => showOutfit(day.date)}

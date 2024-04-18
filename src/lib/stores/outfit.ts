@@ -69,7 +69,6 @@ const outfitStore = () => {
 		async setOutfitOfMonth() {
 			const data = await this.fetchData(2024, 4);
 			update((state) => ({ ...state, outfits: data }));
-			console.log(data);
 		},
 		closeDialog() {
 			update((state) => ({ ...state, dialogOpen: false }));
@@ -78,6 +77,10 @@ const outfitStore = () => {
 			const { id } = this.getState();
 			console.log(id);
 			await axios.delete(`/api/coordis/${id}`);
+			this.setOutfitOfMonth();
+		},
+		async postOutfit(data) {
+			await axios.post('/api/coordis', data);
 			this.setOutfitOfMonth();
 		}
 	};
