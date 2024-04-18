@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { outfitContextKey, storeContextKey } from '$lib/context.js';
+	import type { OutfitStore } from '$lib/stores/outfit.js';
 	import dayjs from 'dayjs';
 	import { createEventDispatcher, getContext } from 'svelte';
 
@@ -14,7 +15,7 @@
 	};
 
 	const store = getContext(storeContextKey);
-	const outfitStore = getContext(outfitContextKey);
+	const outfitStore: OutfitStore = getContext(outfitContextKey);
 
 	const dispatch = createEventDispatcher();
 

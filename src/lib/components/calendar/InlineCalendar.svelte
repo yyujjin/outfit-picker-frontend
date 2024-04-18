@@ -9,14 +9,14 @@
 	import { calendar as calendarDefaults } from '$lib/config/defaults.js';
 	import Calendar from './Calendar.svelte';
 	import OutfitDialog from '../OutfitDialog.svelte';
-	import outfitStore from '$lib/stores/outfit.js';
+	import { outfitStore } from '$lib/stores/outfit.js';
 
 	export let selected = calendarDefaults.selected;
 	export let start = calendarDefaults.start;
 	export let end = calendarDefaults.end;
 	// export let format = calendarDefaults.format;
-	export let formatted = '';
-	export let theme = {};
+	// export let formatted = '';
+	// export let theme = {};
 	// export let defaultTheme = undefined;
 	export let startOfWeekIndex = 0;
 	export let store = datepickerStore.get({ selected, start, end, startOfWeekIndex });
@@ -25,10 +25,9 @@
 
 	setContext(storeContextKey, store);
 
-	const outfit = outfitStore();
-	setContext(outfitContextKey, outfit);
+	setContext(outfitContextKey, outfitStore);
 
-	let promise = outfit.setOutfitOfMonth();
+	let promise = outfitStore.setOutfitOfMonth();
 	// setContext(
 	// 	keyControlsContextKey,
 	// 	derived([store, focused], ([$s, $focused]) => ($focused ? $s.activeView : undefined))
@@ -38,11 +37,13 @@
 
 	// $: selected = $store.selected;
 	// $: formatted = dayjs(selected).format(format);
+
+	const { data } = outfitStore;
 </script>
 
 {#await promise then _}
 	<Calendar />
-	{#if $outfit.dialogOpen}
+	{#if $data.dialogOpen}
 		<OutfitDialog />
 	{/if}
 {/await}
@@ -60,9 +61,3 @@
 		</div>
 	</Theme>
 </CrossfadeBoundary> -->
-
-<style>
-	div {
-		display: inline-block;
-	}
-</style>

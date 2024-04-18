@@ -6,13 +6,14 @@
 	// import KeyControls from '$lib/components/generic/KeyControls.svelte';
 	import Grid from '$lib/components/generic/Grid.svelte';
 	import DayPickerItem from './DayPickerItem.svelte';
+	import type { OutfitStore } from '$lib/stores/outfit.js';
 	// import InfiniteGrid from '$lib/components/generic/InfiniteGrid.svelte';
 	// import Crossfade from '../generic/crossfade/Crossfade.svelte';
 	// import scrollable from '$lib/directives/scrollable';
 	// import { scrollStep } from '$lib/config/scroll';
 
 	const store = getContext(storeContextKey);
-	const outfitStore = getContext(outfitContextKey);
+	const outfitStore: OutfitStore = getContext(outfitContextKey);
 
 	// const duration = 450;
 
@@ -72,10 +73,10 @@
 	// const updateIndex = ({ detail: { step: newIndex } }) => {
 	// 	store.add(newIndex - monthIndex, 'month', ['date']);
 	// };
-
+	const { data: outfitData } = outfitStore;
 	// $: totalMonths = calPagesBetweenDates($store.start, $store.end);
 	$: monthIndex = calPagesBetweenDates($store.start, $store.selected) - 1;
-	$: data = get(monthIndex, $outfitStore.outfits);
+	$: data = get(monthIndex, $outfitData.outfits);
 
 	// $: initialY = monthIndex * scrollStep;
 

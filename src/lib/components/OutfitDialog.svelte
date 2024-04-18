@@ -3,15 +3,16 @@
 	import * as RadioGroup from '$lib/components/ui/radio-group/index.js';
 	import { getContext } from 'svelte';
 	import { outfitContextKey } from '$lib/context.js';
-	import axios from 'axios';
-	import { Mode } from '$lib/stores/outfit.js';
+	import { Mode, OutfitStore } from '$lib/stores/outfit.js';
 
-	const store = getContext(outfitContextKey);
+	const store: OutfitStore = getContext(outfitContextKey);
 
-	let date = $store.date;
-	let weather = $store.weather.toString();
-	let temperature = $store.temperature;
-	let photo = $store.photo;
+	const { data } = store;
+
+	let date = $data.date;
+	let weather = $data.weather.toString();
+	let temperature = $data.temperature;
+	let photo = $data.photo;
 
 	const onSubmit = async () => {
 		const data = {
@@ -43,7 +44,7 @@
 	};
 </script>
 
-<Dialog.Root bind:open={$store.dialogOpen}>
+<Dialog.Root bind:open={$data.dialogOpen}>
 	<Dialog.Content class="sm:max-w-[425px]">
 		<Dialog.Header>
 			<Dialog.Title>Record Outfit</Dialog.Title>
@@ -80,7 +81,7 @@
 			</div>
 			<input type="hidden" name="photo" bind:value={photo} />
 		</div>
-		{#if $store.mode === Mode.ADD}
+		{#if $data.mode === Mode.ADD}
 			<div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
 				<button class="btn btn-primary" on:click={onSubmit}>Submit</button>
 			</div>
