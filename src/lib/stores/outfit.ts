@@ -12,7 +12,11 @@ export enum Mode {
 }
 
 export class OutfitStore {
+	#year;
+	#month;
 	constructor(
+		year: number,
+		month: number,
 		public data = writable({
 			outfits: [],
 			date: '',
@@ -23,10 +27,13 @@ export class OutfitStore {
 			dialogOpen: false,
 			mode: Mode.ADD
 		})
-	) {}
+	) {
+		this.#year = year;
+		this.#month = month;
+	}
 
-	async fetchData(year: number, month: number) {
-		const { data } = await axios.get(`/api/coordis?year=${year}&month=${month}`);
+	async fetchData() {
+		const { data } = await axios.get(`/api/coordis?year=${this.#year}&month=${this.#month}`);
 		return data;
 	}
 	hasOutfit(date: Date) {
@@ -67,8 +74,14 @@ export class OutfitStore {
 			mode: Mode.VIEW
 		}));
 	}
+	async setDate(year: number, month: number) {
+		this.#year = year;
+		this.#month = month + 1;
+		this.setOutfitOfMonth();
+	}
+
 	async setOutfitOfMonth() {
-		const data = await this.fetchData(2024, 4);
+		const data = await this.fetchData();
 		this.data.update((state) => ({ ...state, outfits: data }));
 	}
 	closeDialog() {
@@ -85,5 +98,3 @@ export class OutfitStore {
 		this.setOutfitOfMonth();
 	}
 }
-
-export const outfitStore = new OutfitStore();

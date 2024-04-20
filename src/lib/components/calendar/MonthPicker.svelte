@@ -5,10 +5,13 @@
 	// import KeyControls from '$lib/components/generic/KeyControls.svelte';
 	import Grid from '$lib/components/generic/Grid.svelte';
 	import InfiniteGrid from '$lib/components/generic/InfiniteGrid.svelte';
+	import { outfitContextKey } from '$lib/context.js';
 	// import scrollable from '$lib/directives/scrollable';
 	// import { scrollStep } from '$lib/config/scroll';
 
 	const store = getContext(storeContextKey);
+
+	const outfitStore = getContext(outfitContextKey);
 
 	let grid; //InfiniteGrid에서 사용함
 
@@ -37,8 +40,9 @@
 		disabled: boolean;
 	}
 
-	const select = (month: Month) => () => {
+	const select = (month: Month) => async () => {
 		if (month.disabled) return;
+		await outfitStore.setDate($store.year, month); // TODO 중복이 많이 발생해 진짜 별로인 듯
 		store.setMonth(month.index);
 		close();
 	};

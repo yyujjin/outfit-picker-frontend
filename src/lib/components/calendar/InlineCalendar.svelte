@@ -9,7 +9,7 @@
 	import { calendar as calendarDefaults } from '$lib/config/defaults.js';
 	import Calendar from './Calendar.svelte';
 	import OutfitDialog from '../OutfitDialog.svelte';
-	import { outfitStore } from '$lib/stores/outfit.js';
+	import { OutfitStore } from '$lib/stores/outfit.js';
 
 	export let selected = calendarDefaults.selected;
 	export let start = calendarDefaults.start;
@@ -25,6 +25,7 @@
 
 	setContext(storeContextKey, store);
 
+	const outfitStore = new OutfitStore(2024, 4);
 	setContext(outfitContextKey, outfitStore);
 
 	let promise = outfitStore.setOutfitOfMonth();

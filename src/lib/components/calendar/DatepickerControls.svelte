@@ -1,11 +1,12 @@
 <script lang="ts">
 	import Arrow from '$lib/components/generic/Arrow.svelte';
 	import { getContext } from 'svelte';
-	import { storeContextKey } from '$lib/context.js';
+	import { outfitContextKey, storeContextKey } from '$lib/context.js';
 	import dayjs from 'dayjs';
 	// import KeyControls from '$lib/components/generic/KeyControls.svelte';
 
 	const store = getContext(storeContextKey);
+	const outfitStore = getContext(outfitContextKey);
 
 	const UNIT_BY_VIEW = {
 		days: 'month',
@@ -17,8 +18,10 @@
 	$: label = `${$store.activeView === 'days' ? visibleMonth.format('MMMM ') : ''}${$store.year}`;
 	$: addMult = $store.activeView === 'years' ? 10 : 1;
 
-	const add = (amount: number) => () =>
+	const add = (amount: number) => async () => {
+		await outfitStore.setDate($store.year, $store.month + amount);
 		store.add(amount * addMult, UNIT_BY_VIEW[$store.activeView]);
+	};
 
 	const VIEW_TRANSITIONS = ['days', 'months', 'years'];
 	const updateActiveView = () => {
