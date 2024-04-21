@@ -13,7 +13,7 @@
 		</div>
 		<div>
 			<ul class="flex gap-5">
-				<li><a href="#">Login</a></li>
+				<li><a href="/login">Login</a></li>
 			</ul>
 		</div>
 	</nav>
